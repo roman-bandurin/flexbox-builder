@@ -1,0 +1,27 @@
+body {
+  font-family: Menlo, Consolas, monospace;
+  color: #444;
+}
+.item {
+  cursor: pointer;
+}
+.bold {
+  font-weight: bold;
+}
+ul {
+  padding-left: 1em;
+  line-height: 1.5em;
+  list-style-type: disc;
+}
+.flex-container {
+  flex-flow: row nowrap;
+  display: flex;
+}
+.flex-container.column{
+  flex-flow: column nowrap;
+}
+.flex {
+  flex: 1 1 auto;
+  border: 1px solid black;
+  min-height: 30px;
+}
