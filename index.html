@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Дерево</title>
+</head>
+
+<body>
+	<header></header>
+	<section>
+		<article id="app">
+			<ul>
+				<item class="item" v-bind:model="treeData"></item>
+			</ul>
+			<div style="width:100%;">
+				<flex v-bind:model="treeData"></flex>
+			</div>
+		</article>
+	</section>
+	<footer></footer>
+	<script type="text/x-template" id="item-template">
+		<li>
+			<div :class="{bold: isFolder}">
+				<span>{{model.name}}</span>
+				<span v-if="isFolder">
+      	<button v-if="open" @click="toggle">Свернуть</button>
+        <button v-else @click="toggle">Развернуть</button>
+      	<button @click="changeType">Текст</button>
+        <input type="checkbox" v-model="model.isColumn" value="true"/>
+        <span>Колонка</span>
+				</span>
+				<span v-else>
+      	<button @click="changeType">Блок</button>
+      </span>
+				<button @click="removeChild">Удалить</button>
+				<button @click="moveChildUp">Вверх</button>
+				<button @click="moveChildDown">Вниз</button>
+				<button @click="moveLevelUpBefore">Перед родителем</button>
+				<button @click="moveLevelUpAfter">После родителя</button>
+				<button @click="moveToSiblingBefore">В соседа сверху</button>
+				<button @click="moveToSiblingAfter">В соседа снизу</button>
+			</div>
+			<ul v-show="open" v-if="isFolder">
+				<item class="item" v-for="(model, index) in model.children" v-bind:model="model" v-bind:index="index">
+				</item>
+				<li>
+					<button @click="addChild">Добавить</button>
+				</li>
+			</ul>
+		</li>
+	</script>
+	<script type="text/x-template" id="flex-template">
+		<div :class="{'flex-container': isFolder, 'column': model.isColumn}">
+			<span>{{isFolder ? '' : model.name}}</span>
+			<flex class="flex" v-for="(model, index) in model.children" v-bind:model="model">
+			</flex>
+		</div>
+	</script>
+	<script type="text/javascript" src="https://unpkg.com/vue/dist/vue.min.js"></script>
+	<script type="text/javascript" src="./app.js"></script>
+	<script type="text/javascript">
+		var app = new Vue(new App());
+	</script>
+</body>
+
+</html>
